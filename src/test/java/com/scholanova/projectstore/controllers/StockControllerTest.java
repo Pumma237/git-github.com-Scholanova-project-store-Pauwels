@@ -336,7 +336,7 @@ public class StockControllerTest {
             stockList.add(createdStock2);
             stockList.add(createdStock3);
 
-            when(stockService.listStock(storeIdArgumentCaptor.capture())).thenReturn(stockList);
+            when(stockService.listStock(storeIdArgumentCaptor.capture(), "Nail")).thenReturn(stockList);
 
             // When
             ResponseEntity<String> responseEntity = template.exchange(url,
