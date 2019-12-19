@@ -313,6 +313,58 @@ public class StockControllerTest {
             );
             verify(stockService).listStock(1);
         }
+
+        @Test
+        void givenListOfStockType_whenCalled_getStockType() throws Exception{
+            // given
+            String url = "http://localhost:{port}/stores/1/stocks?type={type}";
+
+            Map<String, String> urlVariables = new HashMap<>();
+            urlVariables.put("port", String.valueOf(port));
+            urlVariables.put("type", "Nail");
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<String> httpEntity = new HttpEntity<>(headers);
+
+            Stock createdStock = new Stock(1, "Flat Nail", "Nail", 100, 1);
+            Stock createdStock2 = new Stock(1, "Not Flat Nail", "Nail", 100, 1);
+            List<Stock> stockList = new ArrayList<>();
+            stockList.add(createdStock);
+            stockList.add(createdStock2);
+
+            when(stockService.listStock(storeIdArgumentCaptor.capture())).thenReturn(stockList);
+
+            // When
+            ResponseEntity<String> responseEntity = template.exchange(url,
+                    HttpMethod.GET,
+                    httpEntity,
+                    String.class,
+                    urlVariables);
+
+            // Then
+            assertThat(responseEntity.getStatusCode()).isEqualTo(OK);
+            assertThat(responseEntity.getBody()).isEqualTo(
+                    "[" +
+                            "{" +
+                            "\"id\":1," +
+                            "\"name\":\"Flat Nail\"," +
+                            "\"type\":\"Nail\"," +
+                            "\"value\":100," +
+                            "\"storeId\":1" +
+                            "}," +
+                            "{" +
+                            "\"id\":1," +
+                            "\"name\":\"Not Flat Nail\"," +
+                            "\"type\":\"Nail\"," +
+                            "\"value\":100," +
+                            "\"storeId\":1" +
+                            "}" +
+                            "]"
+            );
+            assertThat(storeIdArgumentCaptor.getValue()).isEqualTo(1);
+        }
     }
 
     @Nested
