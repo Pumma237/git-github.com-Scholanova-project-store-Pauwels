@@ -55,6 +55,9 @@ public class StockControllerTest {
     ArgumentCaptor<Integer> storeIdArgumentCaptor;
 
     @Captor
+    ArgumentCaptor<String> typeArgumentCaptor;
+
+    @Captor
     ArgumentCaptor<Integer> stockIdArgumentCaptor;
 
     @Nested
@@ -317,11 +320,10 @@ public class StockControllerTest {
         @Test
         void givenTypeStock_whenCalled_getStockType() throws Exception{
             // given
-            String url = "http://localhost:{port}/stores/1/stocks?type={type}";
+            String url = "http://localhost:{port}/stores/1/stocks?type=Nail";
 
             Map<String, String> urlVariables = new HashMap<>();
             urlVariables.put("port", String.valueOf(port));
-            urlVariables.put("type", "Nail");
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -336,7 +338,7 @@ public class StockControllerTest {
             stockList.add(createdStock2);
             stockList.add(createdStock3);
 
-            when(stockService.listStock(storeIdArgumentCaptor.capture(), "Nail")).thenReturn(stockList);
+            when(stockService.getStoreStockByType(storeIdArgumentCaptor.capture(), typeArgumentCaptor.capture())).thenReturn(stockList);
 
             // When
             ResponseEntity<String> responseEntity = template.exchange(url,
@@ -366,6 +368,7 @@ public class StockControllerTest {
                             "]"
             );
             assertThat(storeIdArgumentCaptor.getValue()).isEqualTo(1);
+            assertThat(typeArgumentCaptor.getValue()).isEqualTo("Nail");
         }
     }
 

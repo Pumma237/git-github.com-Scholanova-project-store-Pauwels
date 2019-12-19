@@ -71,7 +71,7 @@ public class StockRepository {
                 new BeanPropertyRowMapper<>(Stock.class));
     }
 
-    public List<Stock> listStocksByStoreIdAndType(Integer storeId, String type) throws ModelNotFoundException {
+    public List<Stock> getStoreStockByType(Integer storeId, String type) throws ModelNotFoundException {
         String query = "SELECT ID as id, " +
                 "NAME AS name, " +
                 "TYPE AS type, " +
@@ -82,6 +82,7 @@ public class StockRepository {
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("storeId", storeId);
+        parameters.put("type", type);
 
         List<Stock> stocks = jdbcTemplate.query(query,
                 parameters,
