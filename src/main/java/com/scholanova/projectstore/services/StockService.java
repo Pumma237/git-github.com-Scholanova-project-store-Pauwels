@@ -28,6 +28,10 @@ public class StockService {
         return stockRepository.listStocksByStoreId(storeId);
     }
 
+    public List<Stock> listStock(int storeId, String type) throws ModelNotFoundException {
+        return stockRepository.listStocksByStoreIdAndType(storeId, type);
+    }
+
     public void deleteStockById(int stockId) throws StockNotFoundException {
         stockRepository.deleteById(stockId);
     }
