@@ -315,7 +315,7 @@ public class StockControllerTest {
         }
 
         @Test
-        void givenListOfStockType_whenCalled_getStockType() throws Exception{
+        void givenTypeStock_whenCalled_getStockType() throws Exception{
             // given
             String url = "http://localhost:{port}/stores/1/stocks?type={type}";
 
