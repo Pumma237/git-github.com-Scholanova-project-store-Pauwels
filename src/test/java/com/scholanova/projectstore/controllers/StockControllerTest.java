@@ -329,10 +329,12 @@ public class StockControllerTest {
             HttpEntity<String> httpEntity = new HttpEntity<>(headers);
 
             Stock createdStock = new Stock(1, "Flat Nail", "Nail", 100, 1);
-            Stock createdStock2 = new Stock(1, "Not Flat Nail", "Nail", 100, 1);
+            Stock createdStock2 = new Stock(2, "Not Flat Nail", "Nail", 100, 1);
+            Stock createdStock3 = new Stock(3, "Banana", "Fruit", 100, 1);
             List<Stock> stockList = new ArrayList<>();
             stockList.add(createdStock);
             stockList.add(createdStock2);
+            stockList.add(createdStock3);
 
             when(stockService.listStock(storeIdArgumentCaptor.capture())).thenReturn(stockList);
 
@@ -355,7 +357,7 @@ public class StockControllerTest {
                             "\"storeId\":1" +
                             "}," +
                             "{" +
-                            "\"id\":1," +
+                            "\"id\":2," +
                             "\"name\":\"Not Flat Nail\"," +
                             "\"type\":\"Nail\"," +
                             "\"value\":100," +

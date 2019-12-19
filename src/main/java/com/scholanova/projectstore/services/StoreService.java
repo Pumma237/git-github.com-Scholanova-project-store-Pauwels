@@ -4,6 +4,7 @@ import com.scholanova.projectstore.exceptions.ModelNotFoundException;
 import com.scholanova.projectstore.exceptions.StoreNameCannotBeEmptyException;
 import com.scholanova.projectstore.exceptions.StoreNotFoundException;
 import com.scholanova.projectstore.models.Store;
+import com.scholanova.projectstore.repositories.StockRepository;
 import com.scholanova.projectstore.repositories.StoreRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -12,8 +13,9 @@ import org.springframework.ui.Model;
 public class StoreService {
 
     private StoreRepository storeRepository;
+    private StockRepository stockRepository;
 
-    public StoreService(StoreRepository storeRepository) {
+    public StoreService(StoreRepository storeRepository, StockRepository stockRepository) {
         this.storeRepository = storeRepository;
     }
 
