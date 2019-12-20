@@ -113,7 +113,7 @@ public class StockControllerTest {
             // given
             String url = "http://localhost:{port}/stores/1/stocks";
 
-            Map<String, String> urlVariables = new HashMap<>();
+            Map<String, String> urlVariables = new HashMap<>(); 
             urlVariables.put("port", String.valueOf(port));
 
             HttpHeaders headers = new HttpHeaders();
